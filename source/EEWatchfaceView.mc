@@ -30,8 +30,8 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     function initialize() {
         WatchFace.initialize();
         self.iconFont = WatchUi.loadResource(Rez.Fonts.Icons); 
-        self.triCycleWidget = new TriCycleWidget(60, 15, 35, self.iconFont);
-        self.timeWidget = new TimeWidget(15, 60, 70, 25);
+        self.triCycleWidget = new TriCycleWidget(55, 10, 35, self.iconFont);
+        self.timeWidget = new TimeWidget(10, 60, 80, 25);
         self.dateWidget = new DateWidget(25, 85, 50, 10);
         self.caloriesWidget = new CaloriesWidget(15, 50, 25, self.iconFont);
         self.heartRateWidget = new HeartRateWidget(65, 50, 20, self.iconFont);

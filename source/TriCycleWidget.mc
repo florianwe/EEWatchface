@@ -40,8 +40,8 @@ class TriCycleWidget {
         self.posCenterY = self.absOffsetY  + self.height / 2;        
         self.maxRadius = drawSizeInPercent * screenSize / 200;
         self.outerCycleRadius = self.maxRadius - self.penSize;
-        self.middleCycleRadius = self.maxRadius - 6 - self.penSize;
-        self.innerCycleRadius = self.maxRadius - 12 - self.penSize;
+        self.middleCycleRadius = self.maxRadius - 8 - self.penSize;
+        self.innerCycleRadius = self.maxRadius - 16 - self.penSize;
         self.posIcon1X = posCenterX + innerCycleRadius / 2 * Toybox.Math.cos(Toybox.Math.PI * 0.5);
         self.posIcon1Y = posCenterY - innerCycleRadius / 2 * Toybox.Math.sin(Toybox.Math.PI * 0.5);
         self.posIcon2X = posCenterX + innerCycleRadius / 2 * Toybox.Math.cos(Toybox.Math.PI * 1.1667);
