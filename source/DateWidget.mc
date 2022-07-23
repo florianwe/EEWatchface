@@ -41,10 +41,14 @@ class DateWidget {
         dc.clearClip();
     }
 
+    (:debug)
     function drawBorder(dc as Dc){
         dc.setPenWidth(1);
         dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
         dc.drawRectangle(self.absOffsetX, self.absOffsetY, self.width, self.height);
     }
+
+    (:release)
+    function drawBorder(dc as Dc){}
      
 }

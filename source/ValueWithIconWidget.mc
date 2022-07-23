@@ -5,8 +5,12 @@ class CaloriesWidget extends ValueWithIconWidget{
 
     function onUpdate(dc as Dc) as Void {
         var activityInfo = Toybox.ActivityMonitor.getInfo();
-        var caloriesString = Lang.format("$1$", [activityInfo.calories]);
-        ValueWithIconWidget.onUpdate(dc, caloriesString);
+        if(activityInfo.calories == null){
+            ValueWithIconWidget.onUpdate(dc, "--");
+        }else{
+            var caloriesString = Lang.format("$1$", [activityInfo.calories]);
+            ValueWithIconWidget.onUpdate(dc, caloriesString);
+        }
     }
 }
 
@@ -17,9 +21,13 @@ class HeartRateWidget extends ValueWithIconWidget{
     }
 
     function onUpdate(dc as Dc) as Void {
-        var hr = Activity.getActivityInfo().currentHeartRate;
-        var heartRateString = Lang.format("$1$", [hr]);
-        ValueWithIconWidget.onUpdate(dc, heartRateString);
+        var heartRate = Activity.getActivityInfo().currentHeartRate;
+        if(heartRate == null){
+            ValueWithIconWidget.onUpdate(dc, "--");
+        } else {
+            var heartRateString = Lang.format("$1$", [heartRate]);
+            ValueWithIconWidget.onUpdate(dc, heartRateString);
+        }
     }
 }
 
@@ -42,8 +50,8 @@ class ValueWithIconWidget {
         self.absOffsetX = offsetXInPercent  * screenSize / 100;
         self.absOffsetY = offsetYInPercent  * screenSize / 100;
         self.width =  drawSizeXInPercent * screenSize / 100;
-        self.height = 8 * screenSize / 100;
-        self.posValueStart = self.absOffsetX + 6 * screenSize / 100;
+        self.height = 10 * screenSize / 100;
+        self.posValueStart = self.absOffsetX + 8 * screenSize / 100;
         self.posCenterY = self.absOffsetY  + self.height / 2;  
         self.iconChar = iconChar;     
         self.iconFont = iconFont; 
@@ -59,10 +67,14 @@ class ValueWithIconWidget {
         dc.clearClip();
     }
 
+    (:debug)
     function drawBorder(dc as Dc){
         dc.setPenWidth(1);
         dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
         dc.drawRectangle(self.absOffsetX, self.absOffsetY, self.width, self.height);
     }
+
+    (:release)
+    function drawBorder(dc as Dc){}
      
 }

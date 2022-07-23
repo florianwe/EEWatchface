@@ -9,6 +9,7 @@ using Toybox.System;
 class TriCycleWidget {
     private var backgroundColor_ = Graphics.COLOR_BLACK;
     private var arcStartAngle_ = 270;
+    private var penSize;
     private var width;
     private var height;
     private var absOffsetX;
@@ -30,6 +31,7 @@ class TriCycleWidget {
     function initialize(offsetXInPercent as Number, offsetYInPercent as Number, drawSizeInPercent as Number, iconFont) {
         var deviceSettings = System.getDeviceSettings();
         var screenSize = deviceSettings.screenWidth;
+        self.penSize = 3;
         self.absOffsetX = offsetXInPercent  * screenSize / 100;
         self.absOffsetY = offsetYInPercent  * screenSize / 100;
         self.width = drawSizeInPercent * screenSize / 100;
@@ -37,9 +39,9 @@ class TriCycleWidget {
         self.posCenterX = self.absOffsetX  + self.width / 2;
         self.posCenterY = self.absOffsetY  + self.height / 2;        
         self.maxRadius = drawSizeInPercent * screenSize / 200;
-        self.outerCycleRadius = self.maxRadius;
-        self.middleCycleRadius = self.maxRadius - 5 ;
-        self.innerCycleRadius = self.maxRadius - 10 ;
+        self.outerCycleRadius = self.maxRadius - self.penSize;
+        self.middleCycleRadius = self.maxRadius - 5 - self.penSize;
+        self.innerCycleRadius = self.maxRadius - 10 - self.penSize;
         self.posIcon1X = posCenterX + innerCycleRadius / 2 * Toybox.Math.cos(Toybox.Math.PI * 0.5);
         self.posIcon1Y = posCenterY - innerCycleRadius / 2 * Toybox.Math.sin(Toybox.Math.PI * 0.5);
         self.posIcon2X = posCenterX + innerCycleRadius / 2 * Toybox.Math.cos(Toybox.Math.PI * 1.1667);
@@ -50,6 +52,9 @@ class TriCycleWidget {
     }
 
     function percentToArcStopValue(percent as Number) as Number {
+        if (percent == 0){
+            return arcStartAngle_ + 1;
+        }
         var arcStopAngle = arcStartAngle_ + percent * 3.6;
         if(arcStopAngle > 360){
             arcStopAngle = arcStopAngle - 360;
@@ -86,6 +91,7 @@ class TriCycleWidget {
     function onUpdate(dc as Dc) as Void {
         dc.setClip(self.absOffsetX, self.absOffsetY, self.width, self.height);
         dc.clear();
+
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
         dc.drawText(posIcon1X, posIcon1Y, self.iconFont, "B", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
 
@@ -95,7 +101,7 @@ class TriCycleWidget {
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_BLACK);
         dc.drawText(posIcon3X, posIcon3Y, self.iconFont, "S", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
 
-        dc.setPenWidth(3);
+        dc.setPenWidth(self.penSize);
         var bodyBatteryValue = self.percentToArcStopValue(self.extractNewestBodyBatteryValue());
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycleRadius, 0, arcStartAngle_, bodyBatteryValue);
@@ -112,18 +118,13 @@ class TriCycleWidget {
         dc.clearClip();
     }
 
+    (:debug)
     function drawBorder(dc as Dc){
         dc.setPenWidth(1);
         dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
         dc.drawRectangle(self.absOffsetX, self.absOffsetY, self.width, self.height);
     }
 
-    function drawCross(dc as Dc, centerX as Number, centerY as Number) as Void {
-        dc.setPenWidth(1);
-        var crossSize = 5;
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.drawLine(centerX - crossSize, centerY, centerX + crossSize,centerY);
-        dc.drawLine(centerX ,centerY - crossSize,centerX , centerY + crossSize );
-    }
-
+    (:release)
+    function drawBorder(dc as Dc){}
 }
