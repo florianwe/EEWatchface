@@ -1,4 +1,4 @@
 <fonts>
-    <font id="testFont1" filename="TestFont1.fnt" filter="1234567890: "/>
-    <font id="Icons" filename="Icons.fnt" filter="HCBPS"/>
+    <font id="ClockFont" filename="ClockFont.fnt" filter="1234567890:"/>
+    <font id="Icons" filename="Icons.fnt" filter="HCBPSA"/>
 </fonts>

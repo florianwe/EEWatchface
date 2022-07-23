@@ -6,11 +6,9 @@ import Toybox.Math;
 using Toybox.SensorHistory;
 using Toybox.System;
 
-
-
 class TimeWidget {
     private var myFont;
-    private var backgroundColor_ = Graphics.COLOR_BLACK;
+    private var backgroundColor_ = Graphics.COLOR_TRANSPARENT;
     private var posCenterX;
     private var posCenterY;
     private var width;
@@ -27,7 +25,8 @@ class TimeWidget {
         self.height = drawSizeYInPercent * screenSize / 100;
         self.posCenterX = self.absOffsetX  + self.width / 2;
         self.posCenterY = self.absOffsetY  + self.height / 2;        
-        self.myFont = WatchUi.loadResource(Rez.Fonts.testFont1);    
+        self.myFont = WatchUi.loadResource(Rez.Fonts.ClockFont);
+        System.println(Lang.format("$1$", [self.height]));
     }
 
     function onUpdate(dc as Dc) as Void {
@@ -45,6 +44,8 @@ class TimeWidget {
     function drawBorder(dc as Dc){
         dc.setPenWidth(1);
         dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
+        dc.drawLine(self.posCenterX, self.absOffsetY, self.posCenterX, self.absOffsetY + 150);
+        dc.drawLine(self.posCenterX - 75, self.posCenterY, self.posCenterX + 75, self.posCenterY);
         dc.drawRectangle(self.absOffsetX, self.absOffsetY, self.width, self.height);
     }
 

@@ -11,7 +11,7 @@ using Toybox.Time.Gregorian;
 
 
 class DateWidget {
-    private var backgroundColor_ = Graphics.COLOR_BLACK;
+    private var backgroundColor_ = Graphics.COLOR_TRANSPARENT;
     private var posCenterX;
     private var posCenterY;
     private var width;

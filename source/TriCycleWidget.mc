@@ -7,7 +7,7 @@ using Toybox.SensorHistory;
 using Toybox.System;
 
 class TriCycleWidget {
-    private var backgroundColor_ = Graphics.COLOR_BLACK;
+    private var backgroundColor_ = Graphics.COLOR_TRANSPARENT;
     private var arcStartAngle_ = 270;
     private var penSize;
     private var width;
@@ -31,7 +31,7 @@ class TriCycleWidget {
     function initialize(offsetXInPercent as Number, offsetYInPercent as Number, drawSizeInPercent as Number, iconFont) {
         var deviceSettings = System.getDeviceSettings();
         var screenSize = deviceSettings.screenWidth;
-        self.penSize = 3;
+        self.penSize = 5;
         self.absOffsetX = offsetXInPercent  * screenSize / 100;
         self.absOffsetY = offsetYInPercent  * screenSize / 100;
         self.width = drawSizeInPercent * screenSize / 100;
@@ -40,8 +40,8 @@ class TriCycleWidget {
         self.posCenterY = self.absOffsetY  + self.height / 2;        
         self.maxRadius = drawSizeInPercent * screenSize / 200;
         self.outerCycleRadius = self.maxRadius - self.penSize;
-        self.middleCycleRadius = self.maxRadius - 5 - self.penSize;
-        self.innerCycleRadius = self.maxRadius - 10 - self.penSize;
+        self.middleCycleRadius = self.maxRadius - 6 - self.penSize;
+        self.innerCycleRadius = self.maxRadius - 12 - self.penSize;
         self.posIcon1X = posCenterX + innerCycleRadius / 2 * Toybox.Math.cos(Toybox.Math.PI * 0.5);
         self.posIcon1Y = posCenterY - innerCycleRadius / 2 * Toybox.Math.sin(Toybox.Math.PI * 0.5);
         self.posIcon2X = posCenterX + innerCycleRadius / 2 * Toybox.Math.cos(Toybox.Math.PI * 1.1667);
@@ -92,26 +92,26 @@ class TriCycleWidget {
         dc.setClip(self.absOffsetX, self.absOffsetY, self.width, self.height);
         dc.clear();
 
-        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_BLUE, self.backgroundColor_);
         dc.drawText(posIcon1X, posIcon1Y, self.iconFont, "B", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
 
-        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_RED, self.backgroundColor_);
         dc.drawText(posIcon2X, posIcon2Y, self.iconFont, "P", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
 
-        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_GREEN, self.backgroundColor_);
         dc.drawText(posIcon3X, posIcon3Y, self.iconFont, "S", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
 
         dc.setPenWidth(self.penSize);
         var bodyBatteryValue = self.percentToArcStopValue(self.extractNewestBodyBatteryValue());
-        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_BLUE, self.backgroundColor_);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycleRadius, 0, arcStartAngle_, bodyBatteryValue);
 
-        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_RED, self.backgroundColor_);
         var batteryValue = self.percentToArcStopValue(self.getBatteryValue());
         dc.drawArc(self.posCenterX ,self.posCenterY, self.innerCycleRadius, 0, arcStartAngle_, batteryValue);
 
         var stepProgress = self.percentToArcStopValue(self.getStepGoalStateInPercent());
-        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_GREEN, self.backgroundColor_);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.outerCycleRadius , 0, arcStartAngle_, stepProgress);     
 
         drawBorder(dc);
