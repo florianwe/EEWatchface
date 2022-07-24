@@ -18,7 +18,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
 
     private var count;
     private var backgroundColor_ = Graphics.COLOR_BLACK;
-    private var triCycleWidget;
+    private var quadCycleWidget;
     private var timeWidget;
     private var dateWidget;
     private var caloriesWidget;
@@ -32,7 +32,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     function initialize() {
         WatchFace.initialize();
         self.iconFont = WatchUi.loadResource(Rez.Fonts.Icons); 
-        self.triCycleWidget = new TriCycleWidget(55, 10, 35, self.iconFont);
+        self.quadCycleWidget = new QuadCycleWidget(55, 10, 35, self.iconFont);
         self.timeWidget = new TimeWidget(15, 60, 75, 25);
         self.dateWidget = new DateWidget(25, 85, 50, 10);
         self.caloriesWidget = new CaloriesWidget(15, 50, 25, self.iconFont);
@@ -66,7 +66,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     function updateAllWidgets(dc as Dc) as Void {
         self.timeWidget.onUpdate(dc);
         self.dateWidget.onUpdate(dc);
-        self.triCycleWidget.onUpdate(dc);
+        self.quadCycleWidget.onUpdate(dc);
         self.caloriesWidget.onUpdate(dc);
         self.heartRateWidget.onUpdate(dc);
         self.altitudeWidget.onUpdate(dc);
