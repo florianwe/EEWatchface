@@ -1,4 +1,4 @@
-class CycleWidget extends EEWidget {
+class CyclingWidget extends EEWidget {
     private var iconFont;
 
     function initialize(offsetXInPercent as Number, offsetYInPercent as Number, drawSizeXInPercent as Number, drawSizeYInPercent as Number, iconFont){
@@ -32,10 +32,10 @@ class CycleWidget extends EEWidget {
         var durationString = Lang.format("$1$ min", [duration / 60 ]);
         var sessionCountString = Lang.format("$1$", [sessionCount]);
         dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
-        dc.drawText(self.absOffsetX , self.absOffsetY + 0.25 * self.height, self.iconFont, "R", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.absOffsetX + 0.30 * self.width, self.absOffsetY + 0.25 * self.height, Graphics.FONT_XTINY, distanceString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.absOffsetX + 0.30 * self.width, self.absOffsetY + 0.75 * self.height, Graphics.FONT_XTINY, durationString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.absOffsetX, self.absOffsetY + 0.75 * self.height, Graphics.FONT_XTINY, sessionCountString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.absOffsetX + 0.2 * self.width, self.posCenterY, self.iconFont, "R", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.absOffsetX + 0.45 * self.width, self.absOffsetY + 0.25 * self.height, Graphics.FONT_XTINY, distanceString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.absOffsetX + 0.45 * self.width, self.absOffsetY + 0.75 * self.height, Graphics.FONT_XTINY, durationString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.absOffsetX, self.posCenterY, Graphics.FONT_XTINY, sessionCountString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
         drawBorder(dc);
         dc.clearClip();
     }

@@ -24,7 +24,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     private var caloriesWidget;
     private var heartRateWidget;
     private var altitudeWidget;
-    private var cycleWidget;
+    private var cyclingWidget;
     private var iconFont;
     private var offscreenBuffer;
     private var useScreenBuffer;
@@ -32,16 +32,15 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     function initialize() {
         WatchFace.initialize();
         self.iconFont = WatchUi.loadResource(Rez.Fonts.Icons); 
-        self.quadCycleWidget = new QuadCycleWidget(55, 10, 35, self.iconFont);
+        self.quadCycleWidget = new QuadCycleWidget(55, 5, 35, self.iconFont);
         self.timeWidget = new TimeWidget(15, 60, 75, 25);
         self.dateWidget = new DateWidget(25, 85, 50, 10);
         self.caloriesWidget = new CaloriesWidget(15, 50, 25, self.iconFont);
         self.heartRateWidget = new HeartRateWidget(65, 50, 20, self.iconFont);
         self.altitudeWidget = new AltitudeWidget(40, 50, 25, self.iconFont);
-        self.cycleWidget = new CycleWidget(20, 20, 30, 20, self.iconFont);
+        self.cyclingWidget = new CyclingWidget(15, 25, 40, 15, self.iconFont);
         self.count = 0;
-        self.useScreenBuffer = false;
-        
+        self.useScreenBuffer = false;   
     }
 
     // Load your resources here
@@ -70,7 +69,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
         self.caloriesWidget.onUpdate(dc);
         self.heartRateWidget.onUpdate(dc);
         self.altitudeWidget.onUpdate(dc);
-        self.cycleWidget.onUpdate(dc);
+        self.cyclingWidget.onUpdate(dc);
     }
 
     // Update the view
