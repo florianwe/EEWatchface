@@ -1,26 +1,16 @@
-class CycleWidget {
-    private var width;
-    private var height;
-    private var absOffsetX;
-    private var absOffsetY;
-    private var backgroundColor_ = Graphics.COLOR_BLACK;
+class CycleWidget extends EEWidget {
     private var iconFont;
 
     function initialize(offsetXInPercent as Number, offsetYInPercent as Number, drawSizeXInPercent as Number, drawSizeYInPercent as Number, iconFont){
-        var deviceSettings = System.getDeviceSettings();
-        var screenSize = deviceSettings.screenWidth;
-        self.absOffsetX = offsetXInPercent  * screenSize / 100;
-        self.absOffsetY = offsetYInPercent  * screenSize / 100;
-        self.width = drawSizeXInPercent * screenSize / 100;
-        self.height = drawSizeYInPercent * screenSize / 100;    
+        EEWidget.initialize(offsetXInPercent, offsetYInPercent, drawSizeXInPercent, drawSizeYInPercent);
         self.iconFont = iconFont;
     }
 
     function onUpdate(dc as Dc) as Void {
-        //dc.setClip(self.absOffsetX, self.absOffsetY, self.width, self.height);
+        dc.setClip(self.absOffsetX, self.absOffsetY, self.width, self.height);
         dc.clear();
         var userActivityIterator = UserProfile.getUserActivityHistory();
-        var sample = userActivityIterator.next();                        // get the user activity data
+        var sample = userActivityIterator.next();
 
         var cycleDistance = 0 ;
         var duration = 0;
@@ -49,14 +39,4 @@ class CycleWidget {
         drawBorder(dc);
         dc.clearClip();
     }
-
-    (:debug)
-    function drawBorder(dc as Dc){
-        dc.setPenWidth(1);
-        dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
-        dc.drawRectangle(self.absOffsetX, self.absOffsetY, self.width, self.height);
-    }
-
-    (:release)
-    function drawBorder(dc as Dc){}
 }

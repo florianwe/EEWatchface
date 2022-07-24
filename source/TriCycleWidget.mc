@@ -6,16 +6,9 @@ import Toybox.Math;
 using Toybox.SensorHistory;
 using Toybox.System;
 
-class TriCycleWidget {
-    private var backgroundColor_ = Graphics.COLOR_TRANSPARENT;
+class TriCycleWidget extends EEWidget {
     private var arcStartAngle_ = 270;
     private var penSize;
-    private var width;
-    private var height;
-    private var absOffsetX;
-    private var absOffsetY;
-    private var posCenterX;
-    private var posCenterY;
     private var maxRadius;
     private var outerCycleRadius;
     private var middleCycleRadius;
@@ -29,16 +22,9 @@ class TriCycleWidget {
     private var iconFont;
 
     function initialize(offsetXInPercent as Number, offsetYInPercent as Number, drawSizeInPercent as Number, iconFont) {
-        var deviceSettings = System.getDeviceSettings();
-        var screenSize = deviceSettings.screenWidth;
+        EEWidget.initialize(offsetXInPercent, offsetYInPercent, drawSizeInPercent, drawSizeInPercent);
         self.penSize = 5;
-        self.absOffsetX = offsetXInPercent  * screenSize / 100;
-        self.absOffsetY = offsetYInPercent  * screenSize / 100;
-        self.width = drawSizeInPercent * screenSize / 100;
-        self.height = drawSizeInPercent * screenSize / 100;
-        self.posCenterX = self.absOffsetX  + self.width / 2;
-        self.posCenterY = self.absOffsetY  + self.height / 2;        
-        self.maxRadius = drawSizeInPercent * screenSize / 200;
+        self.maxRadius = self.width / 2;
         self.outerCycleRadius = self.maxRadius - self.penSize;
         self.middleCycleRadius = self.maxRadius - 8 - self.penSize;
         self.innerCycleRadius = self.maxRadius - 16 - self.penSize;
@@ -118,13 +104,4 @@ class TriCycleWidget {
         dc.clearClip();
     }
 
-    (:debug)
-    function drawBorder(dc as Dc){
-        dc.setPenWidth(1);
-        dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
-        dc.drawRectangle(self.absOffsetX, self.absOffsetY, self.width, self.height);
-    }
-
-    (:release)
-    function drawBorder(dc as Dc){}
 }
