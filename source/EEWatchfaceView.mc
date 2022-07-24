@@ -12,6 +12,7 @@ using Toybox.SensorHistory;
 using Toybox.System;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
+using Toybox.UserProfile;
 
 class EEWatchfaceView extends WatchUi.WatchFace {
 
@@ -23,6 +24,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     private var caloriesWidget;
     private var heartRateWidget;
     private var altitudeWidget;
+    private var cycleWidget;
     private var iconFont;
     private var offscreenBuffer;
     private var useScreenBuffer;
@@ -36,8 +38,10 @@ class EEWatchfaceView extends WatchUi.WatchFace {
         self.caloriesWidget = new CaloriesWidget(15, 50, 25, self.iconFont);
         self.heartRateWidget = new HeartRateWidget(65, 50, 20, self.iconFont);
         self.altitudeWidget = new AltitudeWidget(40, 50, 25, self.iconFont);
+        self.cycleWidget = new CycleWidget(20, 20, 30, 20, self.iconFont);
         self.count = 0;
         self.useScreenBuffer = false;
+        
     }
 
     // Load your resources here
@@ -59,6 +63,16 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     // loading resources into memory.
     function onShow() as Void {}
 
+    function updateAllWidgets(dc as Dc) as Void {
+        self.timeWidget.onUpdate(dc);
+        self.dateWidget.onUpdate(dc);
+        self.triCycleWidget.onUpdate(dc);
+        self.caloriesWidget.onUpdate(dc);
+        self.heartRateWidget.onUpdate(dc);
+        self.altitudeWidget.onUpdate(dc);
+        self.cycleWidget.onUpdate(dc);
+    }
+
     // Update the view
     function onUpdate(dc as Dc) as Void {
         var targetDc = dc;
@@ -70,12 +84,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
 
         if(count == 0){
             targetDc.clear();
-            self.timeWidget.onUpdate(targetDc);
-            self.dateWidget.onUpdate(targetDc);
-            self.triCycleWidget.onUpdate(targetDc);
-            self.caloriesWidget.onUpdate(targetDc);
-            self.heartRateWidget.onUpdate(targetDc);
-            self.altitudeWidget.onUpdate(targetDc);
+            updateAllWidgets(targetDc);
         }       
         count = count + 1;
         var refreshrate = 5;
@@ -83,12 +92,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
             refreshrate = 1;
         }
         if(count % refreshrate == 0){
-            self.timeWidget.onUpdate(targetDc);
-            self.dateWidget.onUpdate(targetDc);
-            self.triCycleWidget.onUpdate(targetDc);
-            self.caloriesWidget.onUpdate(targetDc);
-            self.heartRateWidget.onUpdate(targetDc);
-            self.altitudeWidget.onUpdate(targetDc);
+            updateAllWidgets(targetDc);
         }
 
         if(self.offscreenBuffer != null && self.useScreenBuffer){
