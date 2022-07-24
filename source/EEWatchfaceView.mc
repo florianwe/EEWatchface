@@ -39,7 +39,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
         self.caloriesWidget = new CaloriesWidget(15, 50, 25, self.iconFont);
         self.heartRateWidget = new HeartRateWidget(65, 50, 20, self.iconFont);
         self.altitudeWidget = new AltitudeWidget(40, 50, 25, self.iconFont);
-        self.cyclingWidget = new CyclingWidget(15, 25, 40, 15, self.iconFont);
+        self.cyclingWidget = new CyclingWidget(5, 25, 50, 15, self.iconFont);
         self.secondsWidget = new SecondsWidget(87, 60, 10, 10);
         self.count = 0;
         self.useScreenBuffer = false;   
