@@ -24,7 +24,10 @@ class TimeWidget extends EEWidget {
         dc.drawText(self.posCenterX, self.posCenterY, self.myFont, ":", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
         timeString = Lang.format("$1$", [clockTime.min.format("%02d")]);
+        var minutesWidth = dc.getTextWidthInPixels(timeString, self.myFont);
         dc.drawText(self.posCenterX + 15, self.posCenterY, self.myFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
+        timeString = Lang.format("$1$", [clockTime.sec.format("%02d")]);
+        dc.drawText(self.posCenterX + 15 + minutesWidth, self.absOffsetY + 18, Graphics.FONT_SMALL, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         self.drawBorder(dc);
         dc.clearClip();
     }
