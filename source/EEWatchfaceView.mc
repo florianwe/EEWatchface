@@ -22,6 +22,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     private var heartRateWidget;
     private var altitudeWidget;
     private var cyclingWidget;
+    private var statusWidget;
 
     function initialize() {
         WatchFace.initialize();
@@ -33,6 +34,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
         self.heartRateWidget = new HeartRateWidget(65, 50, 20, iconFont);
         self.altitudeWidget = new AltitudeWidget(40, 50, 25, iconFont);
         self.cyclingWidget = new CyclingWidget(5, 25, 50, 15, iconFont);
+        self.statusWidget = new StatusWidget(20, 10, 30, 10, iconFont);
     }
 
     // Load your resources here
@@ -52,6 +54,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
         self.heartRateWidget.onUpdate(dc);
         self.altitudeWidget.onUpdate(dc);
         self.cyclingWidget.onUpdate(dc);
+        self.statusWidget.onUpdate(dc);
     }
 
     // Update the view
