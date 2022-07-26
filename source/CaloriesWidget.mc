@@ -1,6 +1,6 @@
 class CaloriesWidget extends ValueWithIconWidget{
-    function initialize(offsetXInPercent as Number, offsetYInPercent as Number, drawSizeXInPercent as Number, iconFont){
-        ValueWithIconWidget.initialize(offsetXInPercent, offsetYInPercent, drawSizeXInPercent, iconFont, "C");
+    function initialize(geometry as EEGeometry, depiction as EEDepiction){
+        ValueWithIconWidget.initialize(geometry, depiction, "C");
     }
 
     function onUpdate(dc as Dc) as Void {

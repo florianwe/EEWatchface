@@ -26,15 +26,18 @@ class EEWatchfaceView extends WatchUi.WatchFace {
 
     function initialize() {
         WatchFace.initialize();
-        var iconFont = WatchUi.loadResource(Rez.Fonts.Icons); 
-        self.quadCycleWidget = new QuadCycleWidget(55, 5, 35, iconFont);
-        self.timeWidget = new TimeWidget(5, 60, 90, 25);
-        self.dateWidget = new DateWidget(25, 85, 50, 10);
-        self.caloriesWidget = new CaloriesWidget(15, 50, 25, iconFont);
-        self.heartRateWidget = new HeartRateWidget(65, 50, 20, iconFont);
-        self.altitudeWidget = new AltitudeWidget(40, 50, 25, iconFont);
-        self.cyclingWidget = new CyclingWidget(5, 25, 50, 15, iconFont);
-        self.statusWidget = new StatusWidget(20, 10, 30, 10, iconFont);
+        var depiction = new EEDepiction();
+        depiction.iconFont = WatchUi.loadResource(Rez.Fonts.Icons);
+        depiction.clockFont = WatchUi.loadResource(Rez.Fonts.ClockFont);
+        depiction.backgroundColor = Graphics.COLOR_TRANSPARENT;
+        self.quadCycleWidget = new QuadCycleWidget(new EEGeometry(55, 5, 35, 35), depiction);
+        self.timeWidget = new TimeWidget(new EEGeometry(5, 60, 90, 25), depiction);
+        self.dateWidget = new DateWidget(new EEGeometry(25, 85, 50, 10), depiction);
+        self.caloriesWidget = new CaloriesWidget(new EEGeometry(15, 50, 25, 10), depiction);
+        self.heartRateWidget = new HeartRateWidget(new EEGeometry(65, 50, 20, 10), depiction);
+        self.altitudeWidget = new AltitudeWidget(new EEGeometry(40, 50, 25, 10), depiction);
+        self.cyclingWidget = new CyclingWidget(new EEGeometry(5, 25, 50, 15), depiction);
+        self.statusWidget = new StatusWidget(new EEGeometry(20, 10, 30, 10), depiction);
     }
 
     // Load your resources here
@@ -60,8 +63,6 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     // Update the view
     function onUpdate(dc as Dc) as Void {
         var targetDc = dc;
-        targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        targetDc.clear();
         updateAllWidgets(targetDc);
     }
 

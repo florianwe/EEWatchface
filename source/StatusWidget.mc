@@ -5,11 +5,9 @@ import Toybox.WatchUi;
 using Toybox.System;
 
 class StatusWidget extends EEWidget {
-    private var iconFont;
 
-    function initialize(offsetXInPercent as Number, offsetYInPercent as Number, drawSizeXInPercent as Number, drawSizeYInPercent as Number, iconFont) {
-        EEWidget.initialize(offsetXInPercent, offsetYInPercent, drawSizeXInPercent, drawSizeYInPercent);
-        self.iconFont = iconFont;
+    function initialize(geometry as EEGeometry, depiction as EEDepiction) {
+        EEWidget.initialize(geometry, depiction);
     }
 
     function onUpdate(dc as Dc) as Void {
@@ -19,10 +17,10 @@ class StatusWidget extends EEWidget {
         if(System.getDeviceSettings().connectionAvailable){
             statusString = statusString + "D ";
         }
-        dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
-        dc.drawText(self.posCenterX, self.posCenterY, self.iconFont, statusString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);  
+        dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
+        dc.drawText(self.posCenterX, self.posCenterY, self.depiction.iconFont, statusString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);  
         self.drawBorder(dc);
         dc.clearClip();
     }
-        
+
 }

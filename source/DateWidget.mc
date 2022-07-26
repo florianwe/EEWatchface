@@ -9,8 +9,8 @@ using Toybox.Time.Gregorian;
 
 class DateWidget extends EEWidget {
 
-    function initialize(offsetXInPercent as Number, offsetYInPercent as Number, drawSizeXInPercent as Number, drawSizeYInPercent as Number) {
-        EEWidget.initialize(offsetXInPercent, offsetYInPercent, drawSizeXInPercent, drawSizeYInPercent);
+    function initialize(geometry as EEGeometry, depiction as EEDepiction) {
+        EEWidget.initialize(geometry, depiction);
     }
 
     function onUpdate(dc as Dc) as Void {
@@ -18,8 +18,8 @@ class DateWidget extends EEWidget {
         dc.clear();
         var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
         var dateString = Lang.format("$1$ $2$ $3$", [today.day, today.month,today.year]);
-        dc.setColor(Graphics.COLOR_WHITE, backgroundColor_);
-        dc.drawText(self.posCenterX,self.posCenterY, Graphics.FONT_XTINY,dateString,Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);  
+        dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
+        dc.drawText(self.posCenterX, self.posCenterY, Graphics.FONT_XTINY, dateString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);  
         self.drawBorder(dc);
         dc.clearClip();
     }
