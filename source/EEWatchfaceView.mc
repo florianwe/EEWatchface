@@ -23,6 +23,8 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     private var altitudeWidget;
     private var cyclingWidget;
     private var statusWidget;
+    private var callCount = 0;
+    private var updateRate = 8;
 
     function initialize() {
         WatchFace.initialize();
@@ -49,7 +51,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     // loading resources into memory.
     function onShow() as Void {}
 
-    function updateAllWidgets(dc as Dc) as Void {
+    function drawAllWidgets(dc as Dc) as Void {
         self.timeWidget.onUpdate(dc);
         self.dateWidget.onUpdate(dc);
         self.quadCycleWidget.onUpdate(dc);
@@ -60,10 +62,18 @@ class EEWatchfaceView extends WatchUi.WatchFace {
         self.statusWidget.onUpdate(dc);
     }
 
+    function fetchData() as Void {
+        self.quadCycleWidget.fetchData();
+        self.cyclingWidget.fetchData();
+    }
+
     // Update the view
     function onUpdate(dc as Dc) as Void {
-        var targetDc = dc;
-        updateAllWidgets(targetDc);
+        if(self.callCount % self.updateRate == 0){
+            self.fetchData();
+        }
+        self.drawAllWidgets(dc);
+        self.callCount++;
     }
 
     // Called when this View is removed from the screen. Save the
@@ -72,7 +82,9 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     function onHide() as Void {}
 
     // The user has just looked at their watch. Timers and animations may be started here.
-    function onExitSleep() as Void {}
+    function onExitSleep() as Void {
+        self.callCount = 0;
+    }
 
     // Terminate any active timers and prepare for slow updates.
     function onEnterSleep() as Void {}

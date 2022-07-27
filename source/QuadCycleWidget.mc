@@ -23,6 +23,10 @@ class QuadCycleWidget extends EEWidget {
     private var posIcon4X;
     private var posIcon4Y;
     private var fontSize;
+    private var stepGoalState = 0;
+    private var batteryState = 0;
+    private var bodyBatteryState = 0;
+    private var stressState = 0;
 
     function initialize(geometry as EEGeometry, depiction as EEDepiction) {
         EEWidget.initialize(geometry, depiction);
@@ -35,13 +39,12 @@ class QuadCycleWidget extends EEWidget {
         self.outerCycleRadius =  self.middleCycle2Radius + 1.4 * self.penSize;
         self.posIcon1X = self.posCenterX;
         self.posIcon1Y = self.posCenterY;
-        self.posIcon2X = self.absOffsetX;
-        self.posIcon2Y = self.absOffsetY;
-        self.posIcon3X = self.absOffsetX;
-        self.posIcon3Y = self.absOffsetY + self.height;
-        self.posIcon4X = self.absOffsetX + self.width;
-        self.posIcon4Y = self.absOffsetY + self.height;
-        self.fontSize = 50;
+        self.posIcon2X = self.drawOffsetX;
+        self.posIcon2Y = self.drawOffsetY;
+        self.posIcon3X = self.drawOffsetX;
+        self.posIcon3Y = self.drawOffsetY + self.height;
+        self.posIcon4X = self.drawOffsetX + self.width;
+        self.posIcon4Y = self.drawOffsetY + self.height;
     }
 
     function percentToArcStopValue(percent as Number) as Number {
@@ -94,34 +97,40 @@ class QuadCycleWidget extends EEWidget {
         return 100 * activityInfo.steps / activityInfo.stepGoal;
     }
 
+    function fetchData() as Void {
+        self.stepGoalState = getStepGoalStateInPercent();
+        self.batteryState = getBatteryValue();
+        self.bodyBatteryState = extractNewestBodyBatteryValue();
+        self.stressState = extractNewestStressValue();
+    }
+
     function onUpdate(dc as Dc) as Void {
-        dc.setClip(self.absOffsetX, self.absOffsetY, self.width, self.height);
-        dc.clear();
+        self.onStartDrawing(dc);
+        self.doDraw(dc);
+        self.onFinishDrawing(dc);
+    }
 
+    function doDraw(dc as Dc) as Void {
         dc.setPenWidth(self.penSize);
-
         dc.setColor(Graphics.COLOR_RED, self.depiction.backgroundColor);
         dc.drawText(posIcon1X, posIcon1Y, self.depiction.iconFont, "P", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
-        var batteryValue = self.percentToArcStopValue(self.getBatteryValue());
+        var batteryValue = self.percentToArcStopValue(self.batteryState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.innerCycleRadius, 0, arcStartAngle_, batteryValue);
 
         dc.setColor(Graphics.COLOR_BLUE, self.depiction.backgroundColor);
         dc.drawText(posIcon4X, posIcon4Y - self.fontSize * 0.5, self.depiction.iconFont, "B", Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
-        var bodyBatteryValue = self.percentToArcStopValue(self.extractNewestBodyBatteryValue());
+        var bodyBatteryValue = self.percentToArcStopValue(self.bodyBatteryState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycle2Radius, 0, arcStartAngle_, bodyBatteryValue);
 
         dc.setColor(Graphics.COLOR_GREEN, self.depiction.backgroundColor);
         dc.drawText(posIcon3X, posIcon3Y - self.fontSize * 0.5, self.depiction.iconFont, "S", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
-        var stepProgress = self.percentToArcStopValue(self.getStepGoalStateInPercent());
+        var stepProgress = self.percentToArcStopValue(self.stepGoalState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.outerCycleRadius , 0, arcStartAngle_, stepProgress);     
 
         dc.setColor(Graphics.COLOR_YELLOW, self.depiction.backgroundColor);
         dc.drawText(posIcon2X, posIcon2Y + self.fontSize * 0.4, self.depiction.iconFont, "Q", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
-        var stressValue = self.percentToArcStopValue(self.extractNewestStressValue());
-        dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycle1Radius , 0, arcStartAngle_, stressValue);     
-
-        drawBorder(dc);
-        dc.clearClip();
+        var stressValue = self.percentToArcStopValue(self.stressState);
+        dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycle1Radius , 0, arcStartAngle_, stressValue);
     }
 
 }

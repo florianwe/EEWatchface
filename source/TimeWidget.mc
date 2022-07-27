@@ -13,8 +13,7 @@ class TimeWidget extends EEWidget {
     }
 
     function onUpdate(dc as Dc) as Void {
-        dc.setClip(self.absOffsetX, self.absOffsetY, self.width, self.height);
-        dc.clear();
+        self.onStartDrawing(dc);
         var clockTime = System.getClockTime();
         var timeString = Lang.format("$1$", [clockTime.hour]);
         dc.setColor(Graphics.COLOR_GREEN, self.depiction.backgroundColor);
@@ -25,9 +24,8 @@ class TimeWidget extends EEWidget {
         var minutesWidth = dc.getTextWidthInPixels(timeString, self.depiction.clockFont);
         dc.drawText(self.posCenterX + 15, self.posCenterY, self.depiction.clockFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         timeString = Lang.format("$1$", [clockTime.sec.format("%02d")]);
-        dc.drawText(self.posCenterX + 15 + minutesWidth, self.absOffsetY + 18, Graphics.FONT_SMALL, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
-        self.drawBorder(dc);
-        dc.clearClip();
+        dc.drawText(self.posCenterX + 15 + minutesWidth, self.drawOffsetY + 18, Graphics.FONT_SMALL, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
+        self.onFinishDrawing(dc);
     }
 
 }
