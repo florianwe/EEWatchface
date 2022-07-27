@@ -125,7 +125,12 @@ class QuadCycleWidget extends EEWidget {
         dc.setColor(Graphics.COLOR_GREEN, self.depiction.backgroundColor);
         dc.drawText(posIcon3X, posIcon3Y - self.fontSize * 0.5, self.depiction.iconFont, "S", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         var stepProgress = self.percentToArcStopValue(self.stepGoalState);
-        dc.drawArc(self.posCenterX ,self.posCenterY, self.outerCycleRadius , 0, arcStartAngle_, stepProgress);     
+        dc.drawArc(self.posCenterX ,self.posCenterY, self.outerCycleRadius , 0, arcStartAngle_, stepProgress);
+        if (self.stepGoalState > 100){
+            stepProgress = self.percentToArcStopValue(self.stepGoalState - 100);
+            dc.setColor(Graphics.COLOR_DK_GREEN, self.depiction.backgroundColor);
+            dc.drawArc(self.posCenterX ,self.posCenterY, self.outerCycleRadius , 0, arcStartAngle_, stepProgress);
+        }
 
         dc.setColor(Graphics.COLOR_YELLOW, self.depiction.backgroundColor);
         dc.drawText(posIcon2X, posIcon2Y + self.fontSize * 0.4, self.depiction.iconFont, "Q", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
