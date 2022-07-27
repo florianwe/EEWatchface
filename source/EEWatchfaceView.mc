@@ -24,7 +24,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
         var depiction = new EEDepiction();
         depiction.iconFont = WatchUi.loadResource(Rez.Fonts.Icons);
         depiction.clockFont = WatchUi.loadResource(Rez.Fonts.ClockFont);
-        depiction.backgroundColor = Graphics.COLOR_BLACK;
+        depiction.backgroundColor = Graphics.COLOR_TRANSPARENT;
         self.widgetArray = [
          new QuadCycleWidget(new EEGeometry(55, 5, 35, 35), depiction),
          new TimeWidget(new EEGeometry(5, 60, 90, 25), depiction),
