@@ -1,8 +1,9 @@
-class CyclingWidget extends EEWidget {
-    private var cycleDistance = 0 ;
-    private var duration = 0;
-    private var sessionCount = 0;
+using Toybox.Time;
+using Toybox.Time.Gregorian;
 
+class CyclingWidget extends EEWidget {
+    private var distanceCurrentMonth = 0 ;
+    private var distanceCurrentYear = 0;
 
     function initialize(geometry as EEGeometry, depiction as EEDepiction){
         EEWidget.initialize(geometry, depiction);
@@ -11,33 +12,39 @@ class CyclingWidget extends EEWidget {
     function fetchData() as Void {
         var userActivityIterator = UserProfile.getUserActivityHistory();
         var sample = userActivityIterator.next();
-
-        self.cycleDistance = 0 ;
-        self.duration = 0;
-        self.sessionCount = 0;
+        var today = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        
+        self.distanceCurrentMonth = 0 ;
+        self.distanceCurrentYear = 0;
         while (sample != null) {    
-            if(sample.type == 2 && sample.distance != null) {
-               self.sessionCount++;
-               self.cycleDistance += sample.distance;
-                if(sample.duration != null){
-                        self.duration += sample.duration.value();
+            if(sample.type == 2 && sample.distance != null && sample.startTime != null) {
+                var activityMoment = new Time.Moment(sample.startTime.value());
+                activityMoment = activityMoment.add(new Time.Duration(631065600));// add Garmin Time offset
+                var activityTime = Gregorian.info(activityMoment, Time.FORMAT_SHORT); 
+                System.println(Lang.format("$1$ $2$", [activityTime.month, today.month]));
+                System.println(Lang.format("$1$ $2$", [self.distanceCurrentMonth, self.distanceCurrentYear]));
+                if(activityTime.year == today.year){
+                    self.distanceCurrentYear += sample.distance;
+                    if(activityTime.month == today.month){
+                        self.distanceCurrentMonth += sample.distance;
+                    }
                 }
             }
             sample = userActivityIterator.next();
         }
-
     }
 
     function onUpdate(dc as Dc) as Void {
         self.onStartDrawing(dc);
-        var distanceString = Lang.format("$1$ km", [cycleDistance / 1000 ]);
-        var durationString = Lang.format("$1$ min", [duration / 60 ]);
-        var sessionCountString = Lang.format("$1$", [sessionCount]);
+        var distanceCurrentMonthString = Lang.format("$1$ km", [self.distanceCurrentMonth / 1000]);
+        var distanceCurrentYearString = Lang.format("$1$ km", [self.distanceCurrentYear / 1000]);
+
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
-        dc.drawText(self.drawOffsetX + 0.2 * self.width, self.posCenterY, self.depiction.iconFont, "R", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.drawOffsetX + 0.45 * self.width, self.drawOffsetY + 0.25 * self.height, Graphics.FONT_XTINY, distanceString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.drawOffsetX + 0.45 * self.width, self.drawOffsetY + 0.75 * self.height, Graphics.FONT_XTINY, durationString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.drawOffsetX, self.posCenterY, Graphics.FONT_XTINY, sessionCountString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.drawOffsetX , self.posCenterY, self.depiction.iconFont, "R", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.drawOffsetX + 0.22 * self.width, self.drawOffsetY + 0.25 * self.height, Graphics.FONT_XTINY, "m:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.drawOffsetX + 0.40 * self.width, self.drawOffsetY + 0.25 * self.height, Graphics.FONT_XTINY, distanceCurrentMonthString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.drawOffsetX + 0.22 * self.width, self.drawOffsetY + 0.75 * self.height, Graphics.FONT_XTINY, "y:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.drawOffsetX + 0.40 * self.width, self.drawOffsetY + 0.75 * self.height, Graphics.FONT_XTINY, distanceCurrentYearString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
         self.onFinishDrawing(dc);
     }
 }
