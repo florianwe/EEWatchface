@@ -15,31 +15,26 @@ using Toybox.Time.Gregorian;
 using Toybox.UserProfile;
 
 class EEWatchfaceView extends WatchUi.WatchFace {
-    private var quadCycleWidget;
-    private var timeWidget;
-    private var dateWidget;
-    private var caloriesWidget;
-    private var heartRateWidget;
-    private var altitudeWidget;
-    private var cyclingWidget;
-    private var statusWidget;
+    private var widgetArray;
     private var callCount = 0;
-    private var updateRate = 8;
+    private var updateRate = 10;
 
     function initialize() {
         WatchFace.initialize();
         var depiction = new EEDepiction();
         depiction.iconFont = WatchUi.loadResource(Rez.Fonts.Icons);
         depiction.clockFont = WatchUi.loadResource(Rez.Fonts.ClockFont);
-        depiction.backgroundColor = Graphics.COLOR_TRANSPARENT;
-        self.quadCycleWidget = new QuadCycleWidget(new EEGeometry(55, 5, 35, 35), depiction);
-        self.timeWidget = new TimeWidget(new EEGeometry(5, 60, 90, 25), depiction);
-        self.dateWidget = new DateWidget(new EEGeometry(25, 85, 50, 10), depiction);
-        self.caloriesWidget = new CaloriesWidget(new EEGeometry(15, 50, 25, 10), depiction);
-        self.heartRateWidget = new HeartRateWidget(new EEGeometry(65, 50, 20, 10), depiction);
-        self.altitudeWidget = new AltitudeWidget(new EEGeometry(40, 50, 25, 10), depiction);
-        self.cyclingWidget = new CyclingWidget(new EEGeometry(5, 25, 50, 15), depiction);
-        self.statusWidget = new StatusWidget(new EEGeometry(20, 10, 30, 10), depiction);
+        depiction.backgroundColor = Graphics.COLOR_BLACK;
+        self.widgetArray = [
+         new QuadCycleWidget(new EEGeometry(55, 5, 35, 35), depiction),
+         new TimeWidget(new EEGeometry(5, 60, 90, 25), depiction),
+         new DateWidget(new EEGeometry(25, 85, 50, 10), depiction),
+         new CaloriesWidget(new EEGeometry(15, 50, 25, 10), depiction),
+         new HeartRateWidget(new EEGeometry(65, 50, 20, 10), depiction),
+         new AltitudeWidget(new EEGeometry(40, 50, 25, 10), depiction),
+         new CyclingWidget(new EEGeometry(5, 25, 50, 15), depiction),
+         new StatusWidget(new EEGeometry(20, 10, 30, 10), depiction)
+        ];
     }
 
     // Load your resources here
@@ -52,19 +47,15 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     function onShow() as Void {}
 
     function drawAllWidgets(dc as Dc) as Void {
-        self.timeWidget.onUpdate(dc);
-        self.dateWidget.onUpdate(dc);
-        self.quadCycleWidget.onUpdate(dc);
-        self.caloriesWidget.onUpdate(dc);
-        self.heartRateWidget.onUpdate(dc);
-        self.altitudeWidget.onUpdate(dc);
-        self.cyclingWidget.onUpdate(dc);
-        self.statusWidget.onUpdate(dc);
+        for(var i = 0; i < self.widgetArray.size(); i++){
+            self.widgetArray[i].onUpdate(dc);
+        }
     }
 
     function fetchData() as Void {
-        self.quadCycleWidget.fetchData();
-        self.cyclingWidget.fetchData();
+        for(var i = 0; i < self.widgetArray.size(); i++){
+            self.widgetArray[i].fetchData();
+        }
     }
 
     // Update the view

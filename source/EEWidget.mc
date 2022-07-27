@@ -33,6 +33,8 @@ class EEWidget {
         dc.clearClip();
     }
 
+    function fetchData() as Void {}
+
     (:debug)
     function drawBorder(dc as Dc){
         dc.setPenWidth(1);
