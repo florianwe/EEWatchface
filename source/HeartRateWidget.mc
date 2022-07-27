@@ -9,13 +9,13 @@ class HeartRateWidget extends ValueWithIconWidget{
         if(heartRate > hrZones[1]){
             color = Graphics.COLOR_BLUE;
         }
-        if(heartRate > hrZones[1]){
+        if(heartRate > hrZones[2]){
             color = Graphics.COLOR_GREEN;
         }
-        if(heartRate > hrZones[1]){
+        if(heartRate > hrZones[3]){
             color = Graphics.COLOR_YELLOW;
         }
-        if(heartRate > hrZones[1]){
+        if(heartRate > hrZones[4]){
             color = Graphics.COLOR_RED;
         }
         return color;
