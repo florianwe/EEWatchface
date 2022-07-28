@@ -1,4 +1,5 @@
 <fonts>
     <font id="ClockFont" filename="ClockFont.fnt" filter="1234567890:"/>
     <font id="Icons" filename="Icons.fnt" filter="HCBPSARQDLMNO "/>
+    <font id="SmallText" filename="SmallText.fnt" filter="1234567890:- YMmk:"/>
 </fonts>

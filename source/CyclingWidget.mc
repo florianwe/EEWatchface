@@ -41,10 +41,10 @@ class CyclingWidget extends EEWidget {
 
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
         dc.drawText(self.drawOffsetX + 0.90 *self.width, self.drawOffsetY + 0.20 * self.height, self.depiction.iconFont, "R", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
-        dc.drawText(self.drawOffsetX + 0.50 * self.width, self.drawOffsetY + 0.50 * self.height, Graphics.FONT_XTINY, "m:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
-        dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.50 * self.height, Graphics.FONT_XTINY, distanceCurrentMonthString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
-        dc.drawText(self.drawOffsetX + 0.50 * self.width, self.drawOffsetY + 0.80 * self.height, Graphics.FONT_XTINY, "y:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
-        dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.80 * self.height, Graphics.FONT_XTINY, distanceCurrentYearString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        dc.drawText(self.drawOffsetX + 0.50 * self.width, self.drawOffsetY + 0.50 * self.height, self.depiction.smallTextFont, "M:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.50 * self.height, self.depiction.smallTextFont, distanceCurrentMonthString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        dc.drawText(self.drawOffsetX + 0.50 * self.width, self.drawOffsetY + 0.80 * self.height, self.depiction.smallTextFont, "Y:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.80 * self.height, self.depiction.smallTextFont, distanceCurrentYearString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
         self.drawBorder(dc);
         self.onFinishDrawing(dc);
     }

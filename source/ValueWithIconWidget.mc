@@ -19,7 +19,7 @@ class ValueWithIconWidget extends EEWidget {
         dc.setColor(self.iconColor, self.depiction.backgroundColor);
         dc.drawText(self.drawOffsetX, self.posCenterY, self.depiction.iconFont, self.iconChar, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
-        dc.drawText(self.posValueStartX, self.posCenterY, Graphics.FONT_XTINY, valueString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(self.posValueStartX, self.posCenterY, self.depiction.smallTextFont, valueString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         self.onFinishDrawing(dc);
     }
 
