@@ -9,7 +9,7 @@ class StepsWidget extends EEWidget {
         var steps = Toybox.ActivityMonitor.getInfo().steps;
         var stepsString = Lang.format("$1$", [steps]);
         dc.setColor(Graphics.COLOR_GREEN, self.depiction.backgroundColor);
-        dc.drawText(self.posCenterX, self.posCenterY, self.depiction.smallTextFont, stepsString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);  
+        dc.drawText(self.drawOffsetX, self.posCenterY, self.depiction.smallTextFont, stepsString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);  
         self.onFinishDrawing(dc);
     }
         

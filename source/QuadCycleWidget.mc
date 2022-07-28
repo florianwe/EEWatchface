@@ -137,12 +137,12 @@ class QuadCycleWidget extends EEWidget {
         dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycle2Radius, 0, arcStartAngle_, bodyBatteryValue);
 
         dc.setColor(Graphics.COLOR_YELLOW, self.depiction.backgroundColor);
-        dc.drawText(posIcon2X, posIcon2Y + self.fontSize * 0.4, self.depiction.iconFont, "Q", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(posIcon3X, posIcon3Y - self.fontSize * 0.5, self.depiction.iconFont, "Q", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         var stressValue = self.percentToArcStopValue(self.stressState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycle1Radius , 0, arcStartAngle_, stressValue);
 
         dc.setColor(Graphics.COLOR_GREEN, self.depiction.backgroundColor);
-        dc.drawText(posIcon3X, posIcon3Y - self.fontSize * 0.5, self.depiction.iconFont, "S", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(posIcon2X, posIcon2Y + self.fontSize * 0.4, self.depiction.iconFont, "S", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         var stepProgress = self.percentToArcStopValue(self.stepGoalState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.outerCycleRadius , 0, arcStartAngle_, stepProgress);
         if (self.stepGoalState > 100){
