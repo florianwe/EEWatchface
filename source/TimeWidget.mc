@@ -24,7 +24,7 @@ class TimeWidget extends EEWidget {
         var minutesWidth = dc.getTextWidthInPixels(timeString, self.depiction.clockFont);
         dc.drawText(self.posCenterX + 15, self.posCenterY, self.depiction.clockFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         timeString = Lang.format("$1$", [clockTime.sec.format("%02d")]);
-        dc.drawText(self.posCenterX + 15 + minutesWidth, self.drawOffsetY + 18, Graphics.FONT_SMALL, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(self.posCenterX + 15 + minutesWidth, self.drawOffsetY + 18, self.depiction.smallTextFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         self.onFinishDrawing(dc);
     }
 
