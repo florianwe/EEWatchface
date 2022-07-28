@@ -28,23 +28,27 @@ class EEWidget {
         dc.clear();
     }
 
+    (:debug)
     function onFinishDrawing(dc as Dc){
+        dc.setPenWidth(1);
+        dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
+        dc.drawLine(self.posCenterX, self.posCenterY - 10, self.posCenterX, self.posCenterY + 10);
+        dc.drawLine(self.posCenterX - 10, self.posCenterY, self.posCenterX + 10, self.posCenterY);
         drawBorder(dc);
+        dc.clearClip();
+    }
+
+    (:release)
+    function onFinishDrawing(dc as Dc){
         dc.clearClip();
     }
 
     function fetchData() as Void {}
 
-    (:debug)
     function drawBorder(dc as Dc){
         dc.setPenWidth(1);
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
-        dc.drawLine(self.posCenterX, self.posCenterY - 10, self.posCenterX, self.posCenterY + 10);
-        dc.drawLine(self.posCenterX - 10, self.posCenterY, self.posCenterX + 10, self.posCenterY);
         dc.drawRectangle(self.drawOffsetX, self.drawOffsetY, self.width, self.height);
     }
-
-    (:release)
-    function drawBorder(dc as Dc){}
 
 }

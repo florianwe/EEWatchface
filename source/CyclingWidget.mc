@@ -40,11 +40,12 @@ class CyclingWidget extends EEWidget {
         var distanceCurrentYearString = Lang.format("$1$ km", [self.distanceCurrentYear / 1000]);
 
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
-        dc.drawText(self.drawOffsetX , self.posCenterY, self.depiction.iconFont, "R", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.drawOffsetX + 0.22 * self.width, self.drawOffsetY + 0.25 * self.height, Graphics.FONT_XTINY, "m:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.drawOffsetX + 0.40 * self.width, self.drawOffsetY + 0.25 * self.height, Graphics.FONT_XTINY, distanceCurrentMonthString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.drawOffsetX + 0.22 * self.width, self.drawOffsetY + 0.75 * self.height, Graphics.FONT_XTINY, "y:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
-        dc.drawText(self.drawOffsetX + 0.40 * self.width, self.drawOffsetY + 0.75 * self.height, Graphics.FONT_XTINY, distanceCurrentYearString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT); 
+        dc.drawText(self.drawOffsetX + 0.90 *self.width, self.drawOffsetY + 0.20 * self.height, self.depiction.iconFont, "R", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        dc.drawText(self.drawOffsetX + 0.50 * self.width, self.drawOffsetY + 0.50 * self.height, Graphics.FONT_XTINY, "m:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.50 * self.height, Graphics.FONT_XTINY, distanceCurrentMonthString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        dc.drawText(self.drawOffsetX + 0.50 * self.width, self.drawOffsetY + 0.80 * self.height, Graphics.FONT_XTINY, "y:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.80 * self.height, Graphics.FONT_XTINY, distanceCurrentYearString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
+        self.drawBorder(dc);
         self.onFinishDrawing(dc);
     }
 }
