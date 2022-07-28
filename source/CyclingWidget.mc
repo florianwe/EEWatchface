@@ -44,8 +44,11 @@ class CyclingWidget extends EEWidget {
         dc.drawText(self.drawOffsetX + 0.50 * self.width, self.drawOffsetY + 0.50 * self.height, self.depiction.smallTextFont, "M:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
         dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.50 * self.height, self.depiction.smallTextFont, distanceCurrentMonthString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
         dc.drawText(self.drawOffsetX + 0.50 * self.width, self.drawOffsetY + 0.80 * self.height, self.depiction.smallTextFont, "Y:", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
-        dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.80 * self.height, self.depiction.smallTextFont, distanceCurrentYearString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT); 
-        self.drawBorder(dc);
+        dc.drawText(self.drawOffsetX + 0.98 * self.width, self.drawOffsetY + 0.80 * self.height, self.depiction.smallTextFont, distanceCurrentYearString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT);        
+        dc.setPenWidth(3);
+        dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
+        dc.drawLine(self.drawOffsetX , drawOffsetY + self.height, self.drawOffsetX + self.width, drawOffsetY + self.height);
+        dc.drawLine(self.drawOffsetX + self.width , drawOffsetY, self.drawOffsetX + self.width, drawOffsetY + self.height);
         self.onFinishDrawing(dc);
     }
 }
