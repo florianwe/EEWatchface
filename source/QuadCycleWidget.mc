@@ -25,6 +25,7 @@ class QuadCycleWidget extends EEWidget {
     private var fontSize;
     private var stepGoalState = 0;
     private var batteryState = 0;
+    private var batteryStateLetter = "P";
     private var bodyBatteryState = 0;
     private var stressState = 0;
 
@@ -89,6 +90,19 @@ class QuadCycleWidget extends EEWidget {
 
     function getBatteryValue() as Number {
         var stats = System.getSystemStats();
+        self.batteryStateLetter = "P";
+        if(stats.battery < 85){
+            self.batteryStateLetter = "O";
+        }
+        if(stats.battery < 50){
+            self.batteryStateLetter = "N";
+        }
+        if(stats.battery < 25){
+            self.batteryStateLetter = "M";
+        }
+        if(stats.battery < 10){
+            self.batteryStateLetter = "L";
+        }
         return stats.battery;
     }
 
@@ -113,7 +127,7 @@ class QuadCycleWidget extends EEWidget {
     function doDraw(dc as Dc) as Void {
         dc.setPenWidth(self.penSize);
         dc.setColor(Graphics.COLOR_RED, self.depiction.backgroundColor);
-        dc.drawText(posIcon1X, posIcon1Y, self.depiction.iconFont, "P", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(posIcon1X, posIcon1Y, self.depiction.iconFont, self.batteryStateLetter, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
         var batteryValue = self.percentToArcStopValue(self.batteryState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.innerCycleRadius, 0, arcStartAngle_, batteryValue);
 
