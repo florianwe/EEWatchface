@@ -22,8 +22,8 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     function initialize() {
         WatchFace.initialize();
         var depiction = new EEDepiction();
-        depiction.iconFont = WatchUi.loadResource(Rez.Fonts.Icons);
-        depiction.clockFont = WatchUi.loadResource(Rez.Fonts.ClockFont);
+        depiction.iconsFont = WatchUi.loadResource(Rez.Fonts.Icons);
+        depiction.hugeTextFont = WatchUi.loadResource(Rez.Fonts.HugeText);
         depiction.smallTextFont = WatchUi.loadResource(Rez.Fonts.SmallText);
         depiction.backgroundColor = Graphics.COLOR_TRANSPARENT;
         self.widgetArray = [

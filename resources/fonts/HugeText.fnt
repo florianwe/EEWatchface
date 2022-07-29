@@ -1,0 +1,16 @@
+info face="Garmin_Clock" size=150 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=150 base=119 scaleW=300 scaleH=200 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="HugeText_0.png"
+chars count=12
+char id=32   x=290   y=0     width=3     height=1     xoffset=-1    yoffset=149   xadvance=41    page=0  chnl=15
+char id=48   x=0     y=0     width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=49   x=232   y=93    width=14    height=92    xoffset=5     yoffset=27    xadvance=25    page=0  chnl=15
+char id=50   x=58    y=0     width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=51   x=116   y=0     width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=52   x=174   y=0     width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=53   x=232   y=0     width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=54   x=0     y=93    width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=55   x=58    y=93    width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=56   x=116   y=93    width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=57   x=174   y=93    width=57    height=92    xoffset=5     yoffset=27    xadvance=67    page=0  chnl=15
+char id=58   x=247   y=93    width=14    height=44    xoffset=5     yoffset=51    xadvance=25    page=0  chnl=15

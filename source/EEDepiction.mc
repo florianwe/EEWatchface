@@ -1,6 +1,6 @@
 class EEDepiction{
-    public var iconFont;
-    public var clockFont;
+    public var iconsFont;
+    public var hugeTextFont;
     public var smallTextFont;
     public var backgroundColor;
 }

@@ -17,7 +17,7 @@ class ValueWithIconWidget extends EEWidget {
     function onUpdate(dc as Dc, valueString as String) as Void {
         self.onStartDrawing(dc);
         dc.setColor(self.iconColor, self.depiction.backgroundColor);
-        dc.drawText(self.drawOffsetX, self.posCenterY, self.depiction.iconFont, self.iconChar, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(self.drawOffsetX, self.posCenterY, self.depiction.iconsFont, self.iconChar, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
         dc.drawText(self.posValueStartX, self.posCenterY, self.depiction.smallTextFont, valueString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         self.onFinishDrawing(dc);

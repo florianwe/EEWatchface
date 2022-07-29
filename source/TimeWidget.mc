@@ -17,12 +17,12 @@ class TimeWidget extends EEWidget {
         var clockTime = System.getClockTime();
         var timeString = Lang.format("$1$", [clockTime.hour]);
         dc.setColor(Graphics.COLOR_GREEN, self.depiction.backgroundColor);
-        dc.drawText(self.posCenterX - 15, self.posCenterY, self.depiction.clockFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(self.posCenterX, self.posCenterY, self.depiction.clockFont, ":", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(self.posCenterX - 15, self.posCenterY, self.depiction.hugeTextFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(self.posCenterX, self.posCenterY, self.depiction.hugeTextFont, ":", Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
         timeString = Lang.format("$1$", [clockTime.min.format("%02d")]);
-        var minutesWidth = dc.getTextWidthInPixels(timeString, self.depiction.clockFont);
-        dc.drawText(self.posCenterX + 15, self.posCenterY, self.depiction.clockFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
+        var minutesWidth = dc.getTextWidthInPixels(timeString, self.depiction.hugeTextFont);
+        dc.drawText(self.posCenterX + 15, self.posCenterY, self.depiction.hugeTextFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         timeString = Lang.format("$1$", [clockTime.sec.format("%02d")]);
         dc.drawText(self.posCenterX + 15 + minutesWidth, self.drawOffsetY + 18, self.depiction.smallTextFont, timeString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_LEFT);
         self.onFinishDrawing(dc);

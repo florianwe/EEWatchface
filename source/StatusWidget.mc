@@ -17,7 +17,7 @@ class StatusWidget extends EEWidget {
             statusString = statusString + "D";
         }
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
-        dc.drawText(self.posCenterX, self.posCenterY, self.depiction.iconFont, statusString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);  
+        dc.drawText(self.posCenterX, self.posCenterY, self.depiction.iconsFont, statusString, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);  
         self.onFinishDrawing(dc);
     }
 

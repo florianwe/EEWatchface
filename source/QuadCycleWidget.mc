@@ -32,7 +32,7 @@ class QuadCycleWidget extends EEWidget {
     function initialize(geometry as EEGeometry, depiction as EEDepiction) {
         EEWidget.initialize(geometry, depiction);
         self.penSize = 7;
-        self.fontSize = Graphics.getFontHeight(self.depiction.iconFont);
+        self.fontSize = Graphics.getFontHeight(self.depiction.iconsFont);
         self.maxRadius = self.width / 2;
         self.innerCycleRadius = self.fontSize * 0.32 + self.penSize;
         self.middleCycle1Radius = self.innerCycleRadius + 1.4 * self.penSize ;
@@ -127,22 +127,22 @@ class QuadCycleWidget extends EEWidget {
     function doDraw(dc as Dc) as Void {
         dc.setPenWidth(self.penSize);
         dc.setColor(Graphics.COLOR_RED, self.depiction.backgroundColor);
-        dc.drawText(posIcon1X, posIcon1Y, self.depiction.iconFont, self.batteryStateLetter, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(posIcon1X, posIcon1Y, self.depiction.iconsFont, self.batteryStateLetter, Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
         var batteryValue = self.percentToArcStopValue(self.batteryState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.innerCycleRadius, 0, arcStartAngle_, batteryValue);
 
         dc.setColor(Graphics.COLOR_BLUE, self.depiction.backgroundColor);
-        dc.drawText(posIcon4X, posIcon4Y - self.fontSize * 0.5, self.depiction.iconFont, "B", Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(posIcon4X, posIcon4Y - self.fontSize * 0.5, self.depiction.iconsFont, "B", Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
         var bodyBatteryValue = self.percentToArcStopValue(self.bodyBatteryState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycle2Radius, 0, arcStartAngle_, bodyBatteryValue);
 
         dc.setColor(Graphics.COLOR_YELLOW, self.depiction.backgroundColor);
-        dc.drawText(posIcon3X, posIcon3Y - self.fontSize * 0.5, self.depiction.iconFont, "Q", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(posIcon3X, posIcon3Y - self.fontSize * 0.5, self.depiction.iconsFont, "Q", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         var stressValue = self.percentToArcStopValue(self.stressState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.middleCycle1Radius , 0, arcStartAngle_, stressValue);
 
         dc.setColor(Graphics.COLOR_GREEN, self.depiction.backgroundColor);
-        dc.drawText(posIcon2X, posIcon2Y + self.fontSize * 0.4, self.depiction.iconFont, "S", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(posIcon2X, posIcon2Y + self.fontSize * 0.4, self.depiction.iconsFont, "S", Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         var stepProgress = self.percentToArcStopValue(self.stepGoalState);
         dc.drawArc(self.posCenterX ,self.posCenterY, self.outerCycleRadius , 0, arcStartAngle_, stepProgress);
         if (self.stepGoalState > 100){
