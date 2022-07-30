@@ -23,19 +23,10 @@ class EEWidget {
         self.posCenterY = self.drawOffsetY  + self.height / 2;
     }
 
+    (:release)
     function onStartDrawing(dc as Dc){
         dc.setClip(self.drawOffsetX, self.drawOffsetY, self.width, self.height);
         dc.clear();
-    }
-
-    (:debug)
-    function onFinishDrawing(dc as Dc){
-        dc.setPenWidth(1);
-        dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
-        dc.drawLine(self.posCenterX, self.posCenterY - 10, self.posCenterX, self.posCenterY + 10);
-        dc.drawLine(self.posCenterX - 10, self.posCenterY, self.posCenterX + 10, self.posCenterY);
-        drawBorder(dc);
-        dc.clearClip();
     }
 
     (:release)
@@ -49,6 +40,23 @@ class EEWidget {
         dc.setPenWidth(1);
         dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
         dc.drawRectangle(self.drawOffsetX, self.drawOffsetY, self.width, self.height);
+    }
+
+    (:debug)
+    function onStartDrawing(dc as Dc){
+        dc.setClip(self.drawOffsetX, self.drawOffsetY, self.width, self.height);
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        dc.clear();
+    }
+
+    (:debug)
+    function onFinishDrawing(dc as Dc){
+        dc.setPenWidth(1);
+        dc.setColor(Graphics.COLOR_WHITE, self.depiction.backgroundColor);
+        dc.drawLine(self.posCenterX, self.posCenterY - 10, self.posCenterX, self.posCenterY + 10);
+        dc.drawLine(self.posCenterX - 10, self.posCenterY, self.posCenterX + 10, self.posCenterY);
+        drawBorder(dc);
+        dc.clearClip();
     }
 
 }
