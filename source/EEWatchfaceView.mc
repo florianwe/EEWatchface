@@ -25,7 +25,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
         depiction.iconsFont = WatchUi.loadResource(Rez.Fonts.Icons);
         depiction.hugeTextFont = WatchUi.loadResource(Rez.Fonts.HugeText);
         depiction.smallTextFont = WatchUi.loadResource(Rez.Fonts.SmallText);
-        depiction.backgroundColor = Graphics.COLOR_TRANSPARENT;
+        depiction.backgroundColor = Graphics.COLOR_BLACK;
         self.widgetArray = [
          new QuadCycleWidget(new EEGeometry(60, 15, 35, 35), depiction),
          new TimeWidget(new EEGeometry(5, 60, 90, 25), depiction),
@@ -33,9 +33,10 @@ class EEWatchfaceView extends WatchUi.WatchFace {
          new CaloriesWidget(new EEGeometry(10, 50, 25, 10), depiction),
          new HeartRateWidget(new EEGeometry(60, 50, 20, 10), depiction),
          new AltitudeWidget(new EEGeometry(35, 50, 25, 10), depiction),
-         new CyclingWidget(new EEGeometry(0, 0, 60, 25), depiction),
+         new CyclingWidget(new EEGeometry(0, 0, 58, 25), depiction),
          new StatusWidget(new EEGeometry(80, 50, 20, 10), depiction),
-         new StepsWidget(new EEGeometry(60, 7, 25, 10), depiction)
+         new StepsWidget(new EEGeometry(60, 7, 25, 10), depiction),
+         new WeatherWidget(new EEGeometry(2, 25, 56, 25), depiction)
         ];
     }
 
