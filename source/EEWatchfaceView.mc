@@ -35,7 +35,8 @@ class EEWatchfaceView extends WatchUi.WatchFace {
          new AltitudeWidget(new EEGeometry(35, 50, 25, 10), depiction),
          new CyclingWidget(new EEGeometry(0, 0, 58, 25), depiction),
          new StatusWidget(new EEGeometry(80, 50, 20, 10), depiction),
-         new StepsWidget(new EEGeometry(60, 7, 25, 10), depiction)
+         new StepsWidget(new EEGeometry(60, 7, 25, 10), depiction),
+         new SmileyWidget(new EEGeometry(20, 25, 25, 25), depiction)
         ];
     }
 
