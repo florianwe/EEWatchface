@@ -54,16 +54,17 @@ class EEWatchfaceView extends WatchUi.WatchFace {
 
     // Load your resources here
     function onLayout(dc as Dc) as Void {
-        if(self.useOffscreenBuffer){
-            self.fetchData();
-            self.drawStaticWidgets(self.offscreenBufferDc);
-        }
     }
 
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
-    function onShow() as Void {}
+    function onShow() as Void {
+        if(self.useOffscreenBuffer){
+            self.fetchData();
+            self.drawStaticWidgets(self.offscreenBufferDc);
+        }
+    }
 
     function drawAllWidgets(dc as Dc) as Void {
         self.drawStaticWidgets(dc);
@@ -113,6 +114,10 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     // The user has just looked at their watch. Timers and animations may be started here.
     function onExitSleep() as Void {
         self.callCount = 0;
+        if(self.useOffscreenBuffer){
+            self.fetchData();
+            self.drawStaticWidgets(self.offscreenBufferDc);
+        }
     }
 
     // Terminate any active timers and prepare for slow updates.
