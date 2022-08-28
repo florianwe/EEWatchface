@@ -19,7 +19,7 @@ class CyclingWidget extends EEWidget {
         while (sample != null) {    
             if(sample.type == 2 && sample.distance != null && sample.startTime != null) {
                 var activityMoment = new Time.Moment(sample.startTime.value());
-                activityMoment = activityMoment.add(new Time.Duration(631065600));// add Garmin Time offset
+                //activityMoment = activityMoment.add(new Time.Duration(631065600));// add Garmin Time offset
                 var activityTime = Gregorian.info(activityMoment, Time.FORMAT_SHORT); 
                 System.println(Lang.format("$1$ $2$", [activityTime.month, today.month]));
                 System.println(Lang.format("$1$ $2$", [self.distanceCurrentMonth, self.distanceCurrentYear]));
