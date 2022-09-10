@@ -22,6 +22,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     private var useOffscreenBuffer = true;
     private var offscreenBuffer;
     private var offscreenBufferDc;
+    private var doDraw = false;
 
     function initialize() {
         WatchFace.initialize();
@@ -45,7 +46,8 @@ class EEWatchfaceView extends WatchUi.WatchFace {
             new HeartRateWidget(new EEGeometry(60, 50, 20, 10), depiction)
         ];
         if (Toybox.Graphics has :BufferedBitmap && useOffscreenBuffer) {
-            self.offscreenBuffer = Toybox.Graphics.createBufferedBitmap({:width=>System.getDeviceSettings().screenWidth, :height=>System.getDeviceSettings().screenHeight} );
+            self.offscreenBuffer = Toybox.Graphics.createBufferedBitmap({:width=>System.getDeviceSettings().screenWidth, :height=>System.getDeviceSettings().screenHeight, :colorDepth=>8, 
+                                 :palette=>[Graphics.COLOR_BLACK, Graphics.COLOR_DK_GREEN, Graphics.COLOR_GREEN, Graphics.COLOR_WHITE, Graphics.COLOR_BLUE, 0x0000FF, 0xFFFF00, Graphics.COLOR_RED, Graphics.COLOR_ORANGE, Graphics.COLOR_YELLOW]} );
             self.offscreenBufferDc = self.offscreenBuffer.get().getDc();
             self.offscreenBufferDc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
             self.offscreenBufferDc.clear();
@@ -60,6 +62,7 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
+        self.doDraw = true;
         if(self.useOffscreenBuffer){
             self.fetchData();
             self.drawStaticWidgets(self.offscreenBufferDc);
@@ -94,26 +97,31 @@ class EEWatchfaceView extends WatchUi.WatchFace {
 
     // Update the view
     function onUpdate(dc as Dc) as Void {
-        if(useOffscreenBuffer){
-            self.drawDynamicWidgets(self.offscreenBufferDc);
-            dc.drawBitmap(0, 0, self.offscreenBuffer);
-        } else {
-            if(self.callCount % self.updateRate == 0){
-                self.fetchData();
+        if(self.doDraw){
+            if(useOffscreenBuffer){
+                self.drawDynamicWidgets(self.offscreenBufferDc);
+                dc.drawBitmap(0, 0, self.offscreenBuffer);
+            } else {
+                if(self.callCount % self.updateRate == 0){
+                    self.fetchData();
+                }
+                self.drawAllWidgets(dc);
             }
-            self.drawAllWidgets(dc);
+            self.callCount++;
         }
-        self.callCount++;
     }
 
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from
     // memory.
-    function onHide() as Void {}
+    function onHide() as Void {
+        self.doDraw = false;
+    }
 
     // The user has just looked at their watch. Timers and animations may be started here.
     function onExitSleep() as Void {
         self.callCount = 0;
+        self.doDraw = true;
         if(self.useOffscreenBuffer){
             self.fetchData();
             self.drawStaticWidgets(self.offscreenBufferDc);
@@ -121,6 +129,8 @@ class EEWatchfaceView extends WatchUi.WatchFace {
     }
 
     // Terminate any active timers and prepare for slow updates.
-    function onEnterSleep() as Void {}
+    function onEnterSleep() as Void {
+        self.doDraw = false;
+    }
 
 }
